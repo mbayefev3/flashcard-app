@@ -1,9 +1,15 @@
 import React, {useState} from 'react'
 import {useHistory} from 'react-router-dom'
 
-
+import FlipButton from './FlipButton'
 
 const FlipCard =({decks}) =>{
+
+
+  
+    const [flip, setflip]=useState('front')
+    const [next,setNext] =useState(0)
+    const history=useHistory()
 
 
     const countNumberOfCardsInDeck=decks.cards.filter(card =>{
@@ -13,11 +19,6 @@ const FlipCard =({decks}) =>{
 
        })
 
-       console.log('fdfdfd',countNumberOfCardsInDeck)
-    const [flip, setflip]=useState('front')
-    const [next,setNext] =useState(0)
-
-    const history=useHistory()
 
     const handleFilp =() =>{
 
@@ -29,9 +30,11 @@ const FlipCard =({decks}) =>{
     }
 
     const handleNext =() =>{
-        if(next<2){
+        if(next<countNumberOfCardsInDeck.length-1){
 setNext(next+1)
-        }else{
+        }
+        
+        else{
             if (window.confirm("Restart cards?\n\n click cancel to return to home page.")) {
                 setflip('front')
                 setNext(0)
@@ -43,18 +46,17 @@ setNext(next+1)
 
 return (
     <>
-    <h5 className="card-title">Study {decks.name}</h5>
-    <h3>{`Card ${next+1} of 3`}</h3>
+    <h5 className="card-title"> {decks.name}: Study</h5>
+    <h3>{`Card ${next+1} of ${countNumberOfCardsInDeck.length}`}</h3>
     <p className="card-text">
 
-        { decks.cards[next][flip]
+        {countNumberOfCardsInDeck.length<3 ? `You need at least 3 cards to study.There are ${countNumberOfCardsInDeck.length} cards in the deck` 
+        : decks.cards[next][flip]
         }
     </p>
-    <button className="btn btn-primary" onClick={handleFilp}>Flip</button>
-        {flip==='front' && next===0 ? '' :    <button style={{marginLeft:"10px"}}
-        onClick={handleNext}
-         className="btn btn-primary">Next</button>
-}
+ {countNumberOfCardsInDeck.length<3 ? null :< FlipButton flip={flip} handleFilp={handleFilp} handleNext={handleNext} next={next}/>}
+
+
     </>
 )
 
