@@ -11,7 +11,7 @@ const Deck =({decksAvailable,handleDeleteDeck}) =>{
     // /decks/:deckId/study
 
     // const countNumberOfCardsInDeck =decksAvailable.filter(({}))
-    console.log('render',decksAvailable)
+    // console.log('render',decksAvailable)
 
     const lists =decksAvailable.map(({id,name,description,cards}) => {
 

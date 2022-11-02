@@ -6,26 +6,15 @@ import FlipCard from './FlipCard'
 import './Study.css'
 
 const Study =() =>{
+ const history=useHistory()
+const [decks,setDecks] =useState({})
+const {deckId}=useParams()
+ const {url}=useRouteMatch()
 
-    const history=useHistory()
-    
-    const [decks,setDecks] =useState({})
-   
-    const {deckId}=useParams()
-
-    const {url}=useRouteMatch()
-
-
-    
-
-
- 
 
     useEffect(() =>{
 
-            setDecks([])
-
-                const loadDeck= async (deckId) =>{
+         const loadDeck= async (deckId) =>{
 
                     const {name,cards}=await readDeck(deckId)
                     setDecks({
@@ -49,7 +38,7 @@ if(Object.keys(decks).length===0){
     return (
         <div className="card">
   <div className="card-header">
-     <span className='move-left'>   <Link to="/" >Home</Link> /</span>
+     <span className='move-left'>  <Link to="/" >Home</Link> /</span>
        <span className='move-left'> <Link to={`${url}`}>{decks.name}</Link> /</span>
         <span className='move-left'>Study</span>
   </div>
@@ -68,11 +57,3 @@ export default Study
 
 
 
-{/* <p>{cardsInDeck[0][flip]}</p> */}
-
-
-// cardsInDeck[next].find(({front,back}) =>{
-//     return <>
-//         <p>{front===flipCount || back===flipCount}</p>
-//     </>
-//    })

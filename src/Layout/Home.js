@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from "react";
 import{ listDecks,deleteDeck} from '../utils/api/index'
-
+import CreateButton from "./CreateButton";
 import Deck from "./Deck";
 const Home =() =>{
 
@@ -25,7 +25,6 @@ const Home =() =>{
             const removeDeckById =await deleteDeck(id)
             // after we delete a deck will return the available decks
             const filteredTheUnremovedDecks=decksAvailable.filter(({id:deckId}) => deckId!==id)
-            console.log('filtered',filteredTheUnremovedDecks)
             setdecksAvailable(filteredTheUnremovedDecks)
            
           }
@@ -33,6 +32,7 @@ const Home =() =>{
     }
     return (
         <div>
+            <CreateButton/>
             <Deck decksAvailable={decksAvailable} handleDeleteDeck={handleDeleteDeck}/>
         </div>
     )
